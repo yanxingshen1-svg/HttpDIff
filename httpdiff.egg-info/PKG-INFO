@@ -1,9 +1,0 @@
-Metadata-Version: 2.4
-Name: httpdiff
-Version: 0.1.0
-Summary: CLI tool to diff HTTP API responses between two environments
-Requires-Python: >=3.10
-Description-Content-Type: text/markdown
-Requires-Dist: httpx>=0.27
-Requires-Dist: rich>=13.0
-Requires-Dist: jinja2>=3.1
