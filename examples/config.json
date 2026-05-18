@@ -1,0 +1,7 @@
+{
+  "base_url": "https://jsonplaceholder.typicode.com/todos/1",
+  "target_url": "https://jsonplaceholder.typicode.com/todos/2",
+  "method": "GET",
+  "ignore": ["id"],
+  "format": "terminal"
+}

@@ -1,0 +1,8 @@
+pyproject.toml
+httpdiff/__init__.py
+httpdiff.egg-info/PKG-INFO
+httpdiff.egg-info/SOURCES.txt
+httpdiff.egg-info/dependency_links.txt
+httpdiff.egg-info/entry_points.txt
+httpdiff.egg-info/requires.txt
+httpdiff.egg-info/top_level.txt
