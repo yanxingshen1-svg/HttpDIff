@@ -40,13 +40,15 @@ def execute(config: RequestConfig) -> Response:
     responses.  Non-2xx status codes are *not* treated as errors — the
     caller (``diff``) decides what to compare.
     """
+    method = config.method.upper()
+
     try:
         with httpx.Client(timeout=config.timeout, follow_redirects=True) as client:
             resp = client.request(
-                method=config.method,
+                method=method,
                 url=config.url,
                 headers=config.headers or None,
-                json=config.body if config.method in ("POST", "PUT", "PATCH") else None,
+                json=config.body if method in ("POST", "PUT", "PATCH") else None,
             )
     except httpx.TimeoutException:
         raise RequestError(f"Request timed out after {config.timeout}s: {config.url}")

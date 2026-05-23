@@ -52,6 +52,24 @@ class TestExecute:
         assert resp.status_code == 201
         assert resp.data == {"id": 2, "name": "Bob"}
 
+    def test_lowercase_post_with_body(self):
+        config = RequestConfig(
+            url="https://api.example.com/users",
+            method="post",
+            body={"name": "Bob"},
+        )
+        mock = _mock_response(
+            201,
+            json={"id": 2, "name": "Bob"},
+            headers={"content-type": "application/json"},
+        )
+
+        with patch("httpx.Client.request", return_value=mock) as request:
+            execute(config)
+
+        assert request.call_args.kwargs["method"] == "POST"
+        assert request.call_args.kwargs["json"] == {"name": "Bob"}
+
     def test_network_error(self):
         config = RequestConfig(url="https://api.example.com/error")
 

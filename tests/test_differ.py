@@ -130,3 +130,7 @@ class TestMatchesIgnore:
         # Match field inside array items by last field name
         assert _matches_ignore("root.items[0].id", ["id"])
         assert _matches_ignore("root.items[1].name", ["name"])
+
+    def test_array_path_wildcard(self):
+        assert _matches_ignore("root.items[0].id", ["items.*.id"])
+        assert _matches_ignore("root.items[12].metadata.updated_at", ["items.*.metadata.updated_at"])

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import fnmatch
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -45,6 +46,8 @@ def _matches_ignore(path: str, patterns: list[str]) -> bool:
     elif path == "root":
         path = ""
 
+    array_wildcard_path = re.sub(r"\[\d+\]", ".*", path)
+
     for pat in patterns:
         # Handle *. prefix pattern (matches field at any nesting level)
         if pat.startswith("*."):
@@ -52,7 +55,7 @@ def _matches_ignore(path: str, patterns: list[str]) -> bool:
             if path == field or path.endswith("." + field):
                 return True
         elif "." in pat:
-            if fnmatch.fnmatch(path, pat):
+            if fnmatch.fnmatch(path, pat) or fnmatch.fnmatch(array_wildcard_path, pat):
                 return True
         else:
             # Single field name — check the last path component

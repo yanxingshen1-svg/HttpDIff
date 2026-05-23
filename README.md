@@ -5,7 +5,7 @@
 ```bash
 httpdiff --base https://old-api.example.com/users \
          --target https://new-api.example.com/users \
-         --ignore "timestamp,request_id"
+         --ignore timestamp --ignore request_id
 ```
 
 ## 安装

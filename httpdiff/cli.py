@@ -12,6 +12,14 @@ from httpdiff.reporter import Reporter
 from httpdiff.runner import RequestConfig, RequestError, execute
 
 
+def _split_ignore_patterns(patterns: list[str]) -> list[str]:
+    """Split repeated/comma-separated ignore patterns from CLI args."""
+    result: list[str] = []
+    for pattern in patterns:
+        result.extend(part.strip() for part in pattern.split(",") if part.strip())
+    return result
+
+
 def _parse_args(argv: list[str] | None = None) -> DiffConfig:
     parser = argparse.ArgumentParser(
         prog="httpdiff",
@@ -76,7 +84,7 @@ def _parse_args(argv: list[str] | None = None) -> DiffConfig:
         method=parsed.method.upper(),
         headers=headers,
         body=body,
-        ignore=parsed.ignore,
+        ignore=_split_ignore_patterns(parsed.ignore),
         format=parsed.format,
         output=parsed.output,
     )
